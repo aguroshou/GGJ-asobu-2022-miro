@@ -51,11 +51,13 @@ public class PlayerController : MonoBehaviour
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, playerHighJumpPower);
                 groundCheck.PlayerJumped();
+                groundSoftCheck.PlayerJumped(); //念の為にSoftの方でも2回目のジャンプを防止します。
             }
             else if (_isGround)
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, playerJumpPower);
-                groundCheck.PlayerJumped();
+                groundCheck.PlayerJumped(); //念の為にGroundの方でも2回目のジャンプを防止します。
+                groundSoftCheck.PlayerJumped();
             }
         }
     }

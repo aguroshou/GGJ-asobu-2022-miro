@@ -42,6 +42,7 @@ public class SoftOrHardGimmickController : MonoBehaviour
         if (_isGroundSoft)
         {
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, softOrHardGimmickHighJumpPower);
+            groundSoftCheck.PlayerJumped();
         }
     }
 

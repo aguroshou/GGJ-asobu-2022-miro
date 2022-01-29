@@ -30,6 +30,12 @@ public class GroundSoftCheck : MonoBehaviour
         return _isGroundSoft;
     }
 
+    // プレイヤーが無限にジャンプできてしまう不具合を修正する処理です。
+    public void PlayerJumped()
+    {
+        _isGroundSoft = false;
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(_softTag))
