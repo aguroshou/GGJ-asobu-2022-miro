@@ -63,6 +63,11 @@ public class SwitchButton : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D other)
 	{
+		if (_pushTimer > 0.0f)
+		{
+			return;
+		}
+
 		if (_hitCheckBoxCollider2D.IsTouching(_playerCapsuleCollider2D)
 		&& other.gameObject.CompareTag("Player"))
 		{

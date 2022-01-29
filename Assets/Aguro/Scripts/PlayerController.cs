@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 	private bool _isMove = false;
 	private SpriteRenderer _spriteRenderer;
 
+	public bool IsPlaying { get; set; }
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -30,6 +32,9 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (IsPlaying == false)
+			return;
+
 		//接地判定を得る
 		_isGround = groundCheck.IsGround();
 
