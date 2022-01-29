@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private float playerSpeed;
-    [SerializeField] private float playerHighJumpPower;
-    [SerializeField] private float playerJumpPower;
+    [SerializeField] private float playerSpeed = 2.0f;
+    [SerializeField] private float playerHighJumpPower = 8.0f;
+    [SerializeField] private float playerJumpPower = 5.0f;
     [SerializeField] private GroundCheck groundCheck;
     [SerializeField] private GroundSoftCheck groundSoftCheck;
 
