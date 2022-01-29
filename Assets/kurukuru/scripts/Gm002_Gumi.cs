@@ -4,34 +4,54 @@ using UnityEngine;
 
 public class Gm002_Gumi : GimmickBase
 {
-    public override GimmickID ID
-    {
-        get { return GimmickID.Gumi; }
-    }
+	private Rigidbody2D _rigidbody2D;
+	private SpriteRenderer _spriteRenderer;
+	private CircleCollider2D _collider;
 
-    void Update()
-    {
-    }
+	[SerializeField] private PhysicsMaterial2D physicsMaterial;
+	[SerializeField] Sprite sprite;
 
-    public override void Enter(GimmickID prev)
-    {
-        base.Enter(prev);
+	public override GimmickID ID
+	{
+		get { return GimmickID.Gumi; }
+	}
 
-        // 回転を有効にします。
-        Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.constraints = RigidbodyConstraints2D.None;
+	private void Awake()
+	{
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_rigidbody2D = GetComponent<Rigidbody2D>();
+		_collider = GetComponent<CircleCollider2D>();
+	}
 
-        this.gameObject.tag = "Soft";
-        var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.red;
-    }
+	void Update()
+	{
+	}
 
-    public override void Exit(GimmickID next)
-    {
-        // 回転を無効にします。
-        Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-        
-        base.Exit(next);
-    }
+	public override void Enter(GimmickID prev)
+	{
+		base.Enter(prev);
+
+		// 回転を有効にします。
+		_rigidbody2D.constraints = RigidbodyConstraints2D.None;
+
+		gameObject.tag = "Soft";
+
+		_spriteRenderer.sprite = sprite;
+
+		_collider.enabled = true;
+
+		_rigidbody2D.sharedMaterial = physicsMaterial;
+	}
+
+	public override void Exit(GimmickID next)
+	{
+		base.Exit(next);
+
+		// 回転を無効にします。
+		_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+		_collider.enabled = false;
+
+		_rigidbody2D.sharedMaterial = null;
+	}
 }

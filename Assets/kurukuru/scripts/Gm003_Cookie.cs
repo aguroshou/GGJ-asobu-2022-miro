@@ -6,6 +6,19 @@ public class Gm003_Cookie : GimmickBase
 {
 	public override GimmickID ID { get { return GimmickID.Cookie; } }
 
+	private Rigidbody2D _rigidbody2D;
+	private SpriteRenderer _spriteRenderer;
+	private BoxCollider2D _collider;
+
+	[SerializeField] Sprite sprite;
+
+	private void Awake()
+	{
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_rigidbody2D = GetComponent<Rigidbody2D>();
+		_collider = GetComponent<BoxCollider2D>();
+	}
+
 	void Update()
 	{
 
@@ -16,21 +29,25 @@ public class Gm003_Cookie : GimmickBase
 		base.Enter(prev);
 
 		//横移動を常に停止します。
-		Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-		rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-		
+		_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
 		this.gameObject.tag = "Ground";
-		var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-		spriteRenderer.color = new Color(255.0f / 255.0f, 138.0f / 255.0f, 0.0f);
+
+		_spriteRenderer.sprite = sprite;
+
+		_collider.enabled = true;
+
+		transform.localRotation = Quaternion.identity;
 	}
 
 	public override void Exit(GimmickID next)
 	{
-		//横移動の停止を解除します。
-		Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-		rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-
 		base.Exit(next);
+
+		//横移動の停止を解除します。
+		_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+		_collider.enabled = false;
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
