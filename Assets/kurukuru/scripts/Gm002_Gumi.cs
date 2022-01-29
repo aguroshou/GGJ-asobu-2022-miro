@@ -17,9 +17,9 @@ public class Gm002_Gumi : GimmickBase
     {
         base.Enter(prev);
 
-        //横移動を常に停止します。
+        // 回転を有効にします。
         Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        rigidbody2D.constraints = RigidbodyConstraints2D.None;
 
         this.gameObject.tag = "Soft";
         var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
@@ -28,7 +28,7 @@ public class Gm002_Gumi : GimmickBase
 
     public override void Exit(GimmickID next)
     {
-        //横移動の停止を解除します。
+        // 回転を無効にします。
         Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         
