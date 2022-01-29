@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gm003_Cookie : GimmickBase
+public class Gm004_Ice : GimmickBase
 {
-	public override GimmickID ID { get { return GimmickID.Cookie; } }
+	[SerializeField] float _MeltSpeed = 0.01f;
+
+	public override GimmickID ID { get { return GimmickID.Ice; } }
+
+	float Timer = 0.0f;
 
 	void Update()
 	{
+		Timer -= Time.deltaTime;
+		if (Timer > 0.0f)
+			return;
 
+		transform.localScale -= Vector3.one * _MeltSpeed * Time.deltaTime;
 	}
 
 	public override void Enter(GimmickID prev)
@@ -17,7 +25,9 @@ public class Gm003_Cookie : GimmickBase
 
 		this.gameObject.tag = "Ground";
 		var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-		spriteRenderer.color = new Color(255.0f / 255.0f, 138.0f / 255.0f, 0.0f);
+		spriteRenderer.color = Color.white;
+
+		Timer = 3.0f;
 	}
 
 	public override void Exit(GimmickID next)

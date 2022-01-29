@@ -1,11 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net.NetworkInformation;
 using UnityEngine;
+
+[Serializable]
+public class Change
+{
+	[Description("変化元")]
+	public GimmickID Prev;
+	[Description("変化後")]
+	public GimmickID Next;
+}
+
 
 public class SwitchButton : MonoBehaviour
 {
-	[SerializeField] private GameObject hitCheck;
+	[Description("変化するスイッチリスト")]
+	[SerializeField]
+	List<Change> _ChangeList = new List<Change>()
+	{
+		new Change(){ Prev = GimmickID.Ame, Next = GimmickID.Gumi},
+		new Change(){ Prev = GimmickID.Gumi, Next = GimmickID.Cookie},
+		new Change(){ Prev = GimmickID.Cookie, Next = GimmickID.Ame},
+	};
 
+	[SerializeField] private GameObject hitCheck;
 	// 箱の下の方にある当たり判定です。
 	private BoxCollider2D _hitCheckBoxCollider2D;
 
@@ -30,7 +51,7 @@ public class SwitchButton : MonoBehaviour
 		&& other.gameObject.CompareTag("Player"))
 		{
 			var manager = FindObjectOfType<GimmickManager>();
-			manager.AllChange();
+			manager.AllChange(_ChangeList);
 		}
 	}
 }

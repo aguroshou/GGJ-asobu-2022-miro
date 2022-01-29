@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GimmickManager : MonoBehaviour
@@ -16,22 +17,15 @@ public class GimmickManager : MonoBehaviour
 		_GimmickList.Remove(gimmick);
 	}
 
-	public void AllChange()
+	public void AllChange(List<Change> changeList)
 	{
 		_GimmickList.ForEach(x =>
 		{
-			switch (x.CurrentID)
-			{
-				case GimmickID.Ame:
-					x.Change(GimmickID.Gumi);
-					break;
-				case GimmickID.Gumi:
-					x.Change(GimmickID.Cookie);
-					break;
-				case GimmickID.Cookie:
-					x.Change(GimmickID.Ame);
-					break;
-			}
+			var change = changeList.FirstOrDefault(y => x.CurrentID == y.Prev);
+			if (change == null)
+				return;
+
+			x.Change(change.Next);
 		});
 	}
 }

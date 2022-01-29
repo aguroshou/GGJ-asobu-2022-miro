@@ -11,14 +11,17 @@ public class GimmickChanger : MonoBehaviour
 
 	public GimmickID CurrentID { get { return _Current.ID; } }
 
-	private void Start()
+	private void Awake()
 	{
 		var manager = FindObjectOfType<GimmickManager>();
 		manager.Register(this);
 
-		_GimmickDict.Add(GimmickID.Ame, GetComponent<Gm001_Ame>());
-		_GimmickDict.Add(GimmickID.Gumi, GetComponent<Gm002_Gumi>());
-		_GimmickDict.Add(GimmickID.Cookie, GetComponent<Gm003_Cookie>());
+		var components = GetComponents<GimmickBase>();
+		foreach (var c in components)
+		{
+			_GimmickDict.Add(c.ID, c);
+			c.enabled = false;
+		}
 
 		_Current = _GimmickDict[FirstID];
 		_Current.Enter(GimmickID.None);

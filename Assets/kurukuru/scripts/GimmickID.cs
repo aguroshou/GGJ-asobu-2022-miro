@@ -4,4 +4,5 @@ public enum GimmickID
 	Ame,
 	Gumi,
 	Cookie,
+	Ice,
 }
