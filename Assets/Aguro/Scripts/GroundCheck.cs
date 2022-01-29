@@ -5,12 +5,8 @@ using UnityEngine;
 public class GroundCheck : MonoBehaviour
 {
     private string _groundTag = "Ground";
-    private string _softTag = "Soft";
     private bool _isGround = false;
     private bool _isGroundEnter, _isGroundStay, _isGroundExit;
-
-    // 高くジャンプできるブロック
-    private bool _isGroundSoft = false;
 
 //接地判定を返すメソッド
 //物理判定の更新毎に呼ぶ必要がある
@@ -31,17 +27,10 @@ public class GroundCheck : MonoBehaviour
         return _isGround;
     }
 
-    public bool IsGroundSoft()
+    // プレイヤーが無限にジャンプできてしまう不具合を修正する処理です。
+    public void PlayerJumped()
     {
-        if (_isGroundSoft)
-        {
-            _isGroundSoft = false;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _isGround = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,12 +38,6 @@ public class GroundCheck : MonoBehaviour
         if (collision.CompareTag(_groundTag))
         {
             _isGroundEnter = true;
-        }
-
-        if (collision.CompareTag(_softTag))
-        {
-            _isGroundEnter = true;
-            _isGroundSoft = true;
         }
     }
 
@@ -64,12 +47,6 @@ public class GroundCheck : MonoBehaviour
         {
             _isGroundStay = true;
         }
-
-        if (collision.CompareTag(_softTag))
-        {
-            _isGroundStay = true;
-            _isGroundSoft = true;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -77,12 +54,6 @@ public class GroundCheck : MonoBehaviour
         if (collision.CompareTag(_groundTag))
         {
             _isGroundExit = true;
-        }
-
-        if (collision.CompareTag(_softTag))
-        {
-            _isGroundExit = true;
-            _isGroundSoft = true;
         }
     }
 }

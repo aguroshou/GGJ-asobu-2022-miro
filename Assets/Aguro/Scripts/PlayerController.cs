@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerHighJumpPower;
     [SerializeField] private float playerJumpPower;
     [SerializeField] private GroundCheck groundCheck;
+    [SerializeField] private GroundSoftCheck groundSoftCheck;
 
     private Animator _animator;
     private Rigidbody2D _rigidbody2D;
@@ -37,22 +38,26 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody2D.velocity = new Vector2(0.0f, _rigidbody2D.velocity.y);
         }
-        
+
         //接地判定を得る
         _isGround = groundCheck.IsGround();
-        
-        //床が高くジャンプできるブロックであるかを判別します。
-        _isGroundSoft = groundCheck.IsGroundSoft();
 
-        if (Input.GetKeyDown(KeyCode.W) && _isGround)
+        //床が高くジャンプできるブロックであるかを判別します。
+        _isGroundSoft = groundSoftCheck.IsGroundSoft();
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
             if (_isGroundSoft)
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, playerHighJumpPower);
+                groundCheck.PlayerJumped();
+                groundSoftCheck.PlayerJumped(); //念の為にSoftの方でも2回目のジャンプを防止します。
             }
-            else
+            else if (_isGround)
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, playerJumpPower);
+                groundCheck.PlayerJumped(); //念の為にGroundの方でも2回目のジャンプを防止します。
+                groundSoftCheck.PlayerJumped();
             }
         }
     }
