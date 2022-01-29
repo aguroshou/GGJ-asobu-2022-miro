@@ -36,12 +36,6 @@ public class GroundSoftCheck : MonoBehaviour
         {
             _isGroundSoftEnter = true;
         }
-
-        if (collision.CompareTag(_softTag))
-        {
-            _isGroundSoftEnter = true;
-            _isGroundSoft = true;
-        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -50,12 +44,6 @@ public class GroundSoftCheck : MonoBehaviour
         {
             _isGroundSoftStay = true;
         }
-
-        if (collision.CompareTag(_softTag))
-        {
-            _isGroundSoftStay = true;
-            _isGroundSoft = true;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -63,12 +51,6 @@ public class GroundSoftCheck : MonoBehaviour
         if (collision.CompareTag(_softTag))
         {
             _isGroundSoftExit = true;
-        }
-
-        if (collision.CompareTag(_softTag))
-        {
-            _isGroundSoftExit = true;
-            _isGroundSoft = true;
         }
     }
 }

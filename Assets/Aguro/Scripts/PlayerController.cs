@@ -50,10 +50,12 @@ public class PlayerController : MonoBehaviour
             if (_isGroundSoft)
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, playerHighJumpPower);
+                groundCheck.PlayerJumped();
             }
             else if (_isGround)
             {
                 _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, playerJumpPower);
+                groundCheck.PlayerJumped();
             }
         }
     }
