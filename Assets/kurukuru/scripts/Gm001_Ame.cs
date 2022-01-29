@@ -34,10 +34,19 @@ public class Gm001_Ame : GimmickBase
 
 		// 子オブジェクトにGroudSoftCheckのスクリプトを追加する必要があります。
 		_groundSoftCheck = GetComponentInChildren<GroundSoftCheck>();
+		
+		// 回転を有効にします。
+		Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+		rigidbody2D.constraints = RigidbodyConstraints2D.None;
+
 	}
 
 	public override void Exit(GimmickID next)
 	{
+		// 回転を無効にします。
+		Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+		rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
 		base.Exit(next);
 	}
 }
