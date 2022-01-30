@@ -5,21 +5,59 @@ using UnityEngine;
 public class Gm001_Ame : GimmickBase
 {
 	public override GimmickID ID { get { return GimmickID.Ame; } }
-	
+
 	private GroundSoftCheck _groundSoftCheck;
 	private Rigidbody2D _rigidbody2D;
+	private SpriteRenderer _spriteRenderer;
+	private CircleCollider2D _collider;
 
+	private float _time;
+	private int _spriteCount;
+
+	[SerializeField] private float animationInterval = 0.2f;
 	[SerializeField] private float softOrHardGimmickHighJumpPower = 8.0f;
-	
+	[SerializeField] private List<Sprite> spriteList = new List<Sprite>();
+	[SerializeField] private PhysicsMaterial2D physicsMaterial;
+
+	Vector3 _groundCheckPos;
+
+	private void Awake()
+	{
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_rigidbody2D = GetComponent<Rigidbody2D>();
+		_collider = GetComponent<CircleCollider2D>();
+		_groundSoftCheck = GetComponentInChildren<GroundSoftCheck>();
+	}
+
+	private void Start()
+	{
+		_groundCheckPos = transform.position - _groundSoftCheck.transform.position;
+	}
+
 	void Update()
 	{
-
 		//床が高くジャンプできるブロックであるかを判別します。
 		if (_groundSoftCheck.IsGroundSoft())
 		{
 			_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, softOrHardGimmickHighJumpPower);
 			_groundSoftCheck.PlayerJumped();
 		}
+
+		_time += Time.deltaTime;
+		if (_time > animationInterval)
+		{
+			_spriteCount++;
+			if (_spriteCount >= spriteList.Count)
+				_spriteCount = 0;
+
+			_spriteRenderer.sprite = spriteList[_spriteCount];
+		}
+	}
+
+	private void LateUpdate()
+	{
+		_groundSoftCheck.transform.position = transform.position - _groundCheckPos;
+		_groundSoftCheck.transform.rotation = Quaternion.identity;
 	}
 
 	public override void Enter(GimmickID prev)
@@ -27,26 +65,24 @@ public class Gm001_Ame : GimmickBase
 		base.Enter(prev);
 
 		this.gameObject.tag = "Ground";
-		var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-		spriteRenderer.color = Color.yellow;
 
-		_rigidbody2D = GetComponent<Rigidbody2D>();
+		_spriteRenderer.sprite = spriteList[0];
 
-		// 子オブジェクトにGroudSoftCheckのスクリプトを追加する必要があります。
-		_groundSoftCheck = GetComponentInChildren<GroundSoftCheck>();
-		
 		// 回転を有効にします。
-		Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-		rigidbody2D.constraints = RigidbodyConstraints2D.None;
+		_rigidbody2D.constraints = RigidbodyConstraints2D.None;
 
+		_rigidbody2D.sharedMaterial = physicsMaterial;
+
+		_collider.enabled = true;
 	}
 
 	public override void Exit(GimmickID next)
 	{
-		// 回転を無効にします。
-		Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-		rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-
 		base.Exit(next);
+
+		// 回転を無効にします。
+		_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+		_collider.enabled = false;
+		_rigidbody2D.sharedMaterial = null;
 	}
 }

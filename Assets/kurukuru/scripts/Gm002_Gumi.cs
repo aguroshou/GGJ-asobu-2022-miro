@@ -4,34 +4,67 @@ using UnityEngine;
 
 public class Gm002_Gumi : GimmickBase
 {
-    public override GimmickID ID
-    {
-        get { return GimmickID.Gumi; }
-    }
+	private Rigidbody2D _rigidbody2D;
+	private SpriteRenderer _spriteRenderer;
+	private CircleCollider2D _collider;
 
-    void Update()
-    {
-    }
+	private float _time;
+	private int _spriteCount;
 
-    public override void Enter(GimmickID prev)
-    {
-        base.Enter(prev);
+	[SerializeField] private float animationInterval = 0.2f;
+	[SerializeField] private PhysicsMaterial2D physicsMaterial;
+	[SerializeField] private List<Sprite> spriteList = new List<Sprite>();
 
-        // 回転を有効にします。
-        Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.constraints = RigidbodyConstraints2D.None;
+	public override GimmickID ID
+	{
+		get { return GimmickID.Gumi; }
+	}
 
-        this.gameObject.tag = "Soft";
-        var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.red;
-    }
+	private void Awake()
+	{
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_rigidbody2D = GetComponent<Rigidbody2D>();
+		_collider = GetComponent<CircleCollider2D>();
+	}
 
-    public override void Exit(GimmickID next)
-    {
-        // 回転を無効にします。
-        Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-        
-        base.Exit(next);
-    }
+	void Update()
+	{
+		_time += Time.deltaTime;
+		if (_time > animationInterval)
+		{
+			_spriteCount++;
+			if (_spriteCount >= spriteList.Count)
+				_spriteCount = 0;
+
+			_spriteRenderer.sprite = spriteList[_spriteCount];
+		}
+	}
+
+	public override void Enter(GimmickID prev)
+	{
+		base.Enter(prev);
+
+		// 回転を有効にします。
+		_rigidbody2D.constraints = RigidbodyConstraints2D.None;
+
+		gameObject.tag = "Soft";
+
+		_spriteRenderer.sprite = spriteList[0];
+
+		_collider.enabled = true;
+
+		_rigidbody2D.sharedMaterial = physicsMaterial;
+	}
+
+	public override void Exit(GimmickID next)
+	{
+		base.Exit(next);
+
+		// 回転を無効にします。
+		_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+		_collider.enabled = false;
+
+		_rigidbody2D.sharedMaterial = null;
+	}
 }
