@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class StageClear1 : MonoBehaviour
 {
-    public void OnClickStageSelectButton()
-    {
-        SceneManager.LoadScene("GameSelect");
-    }
+	public void OnClickStageSelectButton()
+	{
+		SceneManager.LoadScene("GameSelect");
+	}
 
-    public void OnClickNextStageButton()
-    {
-        SceneManager.LoadScene("Stage2");
-    }
+	public void OnClickNextStageButton()
+	{
+		SceneManager.LoadScene("Level2");
+	}
 }
