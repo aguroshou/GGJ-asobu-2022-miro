@@ -62,7 +62,7 @@ public class Gm003_Cookie : GimmickBase
 			{
 				if (gameObject != null)
 				{
-
+					SoundManager.I.PlaySE(SoundManager.SE.Cookie);
 					Debug.Log(gameObject.name);
 					Destroy(gameObject);
 				}

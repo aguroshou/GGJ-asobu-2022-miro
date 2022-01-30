@@ -19,6 +19,7 @@ public class SoundManager : SingletonMonobehavior<SoundManager>
 		Button,
 		Jump01,
 		Jump02,
+		Cookie,
 	}
 
 
