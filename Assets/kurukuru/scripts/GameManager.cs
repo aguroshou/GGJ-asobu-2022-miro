@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 		Playing,
 		Clear,
 	}
+	static bool _IsRetry = false;
 
 	State _CurrentState = State.GameStart;
 
@@ -54,22 +55,33 @@ public class GameManager : MonoBehaviour
 				{
 					_text.text = c.ToString();
 				}
-				if (_CountDown < 0.0f)
+				if (_CountDown < 0.0f || _IsRetry)
 				{
 					FindObjectOfType<PlayerController>().IsPlaying = true;
 					_CurrentState = State.Playing;
 					_text.text = "";
-
+					_IsRetry = false;
 					SoundManager.I.PlayBGM(SoundManager.BGM.Game, true);
 				}
 				break;
 			case State.Playing:
+				if (Input.GetKeyDown(KeyCode.R))
+				{
+					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+					_IsRetry = true;
+				}
+				if (Input.GetKeyDown(KeyCode.Escape))
+				{
+					SceneManager.LoadScene("Title");
+					_IsRetry = false;
+				}
 				break;
 			case State.Clear:
 				_text.text = "Clear";
 				_CountDown -= Time.deltaTime;
 				if (_CountDown < 0.0f)
 				{
+					_IsRetry = false;
 					SceneManager.LoadScene("GameSelect");
 				}
 				break;
