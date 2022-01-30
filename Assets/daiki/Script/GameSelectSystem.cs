@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameSelectSystem : MonoBehaviour
 {
+
     public void OnClickLevel1Button()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("ClearScene");
     }
 
     public void OnClickLevel2Button()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("Stage2");
     }
 
     public void OnClickLevel3Button()
     {
-        SceneManager.LoadScene("Level3");
+        SceneManager.LoadScene("Stage3");
     }
 
-    public void OnClickEndGameButton()
+    public void OnClicGameEndButton()
     {
         Application.Quit();
     }
