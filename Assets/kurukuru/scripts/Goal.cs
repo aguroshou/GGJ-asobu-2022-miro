@@ -43,8 +43,10 @@ public class Goal : MonoBehaviour
 		if (other.gameObject.CompareTag("Player"))
 		{
 			Debug.Log("ステージ" + currentStageNumber + "をクリアしました。");
+			/*
 			PlayerPrefs.SetInt("STAGE" + currentStageNumber.ToString(), 1);
 			PlayerPrefs.Save();
+			*/
 
 			if (!_isStageCleared)
 			{

@@ -7,23 +7,23 @@ using UnityEngine.SceneManagement;
 public class GameSelectSystem : MonoBehaviour
 {
 
-    public void OnClickLevel1Button()
-    {
-        SceneManager.LoadScene("ClearScene");
-    }
+	public void OnClickLevel1Button()
+	{
+		SceneManager.LoadScene("Level1");
+	}
 
-    public void OnClickLevel2Button()
-    {
-        SceneManager.LoadScene("Stage2");
-    }
+	public void OnClickLevel2Button()
+	{
+		SceneManager.LoadScene("Level2");
+	}
 
-    public void OnClickLevel3Button()
-    {
-        SceneManager.LoadScene("Stage3");
-    }
+	public void OnClickLevel3Button()
+	{
+		SceneManager.LoadScene("Level3");
+	}
 
-    public void OnClicGameEndButton()
-    {
-        Application.Quit();
-    }
+	public void OnClicGameEndButton()
+	{
+		Application.Quit();
+	}
 }

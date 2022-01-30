@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
 	public bool IsPlaying { get { return _CurrentState == State.Playing; } }
 
+	public string ClearSceneName;
+
 	[SerializeField] Text _text;
 
 	float _CountDown = 4.0f;
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour
 				if (_CountDown < 0.0f)
 				{
 					_IsRetry = false;
-					SceneManager.LoadScene("GameSelect");
+					SceneManager.LoadScene(ClearSceneName);
 				}
 				break;
 		}
