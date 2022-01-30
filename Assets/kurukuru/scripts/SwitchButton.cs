@@ -75,6 +75,8 @@ public class SwitchButton : MonoBehaviour
 		{
 			var manager = FindObjectOfType<GimmickManager>();
 
+			SoundManager.I.PlaySE(SoundManager.SE.Button);
+
 			if (_IsAll)
 			{
 				manager.AllChange(_ChangeList);

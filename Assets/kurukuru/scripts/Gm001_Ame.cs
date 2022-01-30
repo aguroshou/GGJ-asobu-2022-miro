@@ -41,6 +41,8 @@ public class Gm001_Ame : GimmickBase
 		{
 			_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, softOrHardGimmickHighJumpPower);
 			_groundSoftCheck.PlayerJumped();
+
+			SoundManager.I.PlaySE(SoundManager.SE.Jump02);
 		}
 
 		_time += Time.deltaTime;

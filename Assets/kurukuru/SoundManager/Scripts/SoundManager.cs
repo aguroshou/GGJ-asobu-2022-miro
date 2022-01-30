@@ -14,6 +14,9 @@ public class SoundManager : SingletonMonobehavior<SoundManager>
 
 	public enum SE
 	{
+		Button,
+		Jump01,
+		Jump02,
 	}
 
 

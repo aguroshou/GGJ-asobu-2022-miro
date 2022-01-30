@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
 				groundSoftCheck.PlayerJumped(); //念の為にSoftの方でも2回目のジャンプを防止します。
 
 				_isJumping = true;
+
+				SoundManager.I.PlaySE(SoundManager.SE.Jump02);
 			}
 			else if (_isGround)
 			{
@@ -77,6 +79,8 @@ public class PlayerController : MonoBehaviour
 				groundCheck.PlayerJumped(); //念の為にGroundの方でも2回目のジャンプを防止します。
 				groundSoftCheck.PlayerJumped();
 				_animator.CrossFade("jump", 0.0f);
+
+				SoundManager.I.PlaySE(SoundManager.SE.Jump01);
 
 				_isJumping = true;
 			}
