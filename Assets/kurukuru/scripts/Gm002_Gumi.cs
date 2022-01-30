@@ -8,8 +8,12 @@ public class Gm002_Gumi : GimmickBase
 	private SpriteRenderer _spriteRenderer;
 	private CircleCollider2D _collider;
 
+	private float _time;
+	private int _spriteCount;
+
+	[SerializeField] private float animationInterval = 0.2f;
 	[SerializeField] private PhysicsMaterial2D physicsMaterial;
-	[SerializeField] Sprite sprite;
+	[SerializeField] private List<Sprite> spriteList = new List<Sprite>();
 
 	public override GimmickID ID
 	{
@@ -25,6 +29,15 @@ public class Gm002_Gumi : GimmickBase
 
 	void Update()
 	{
+		_time += Time.deltaTime;
+		if (_time > animationInterval)
+		{
+			_spriteCount++;
+			if (_spriteCount >= spriteList.Count)
+				_spriteCount = 0;
+
+			_spriteRenderer.sprite = spriteList[_spriteCount];
+		}
 	}
 
 	public override void Enter(GimmickID prev)
@@ -36,7 +49,7 @@ public class Gm002_Gumi : GimmickBase
 
 		gameObject.tag = "Soft";
 
-		_spriteRenderer.sprite = sprite;
+		_spriteRenderer.sprite = spriteList[0];
 
 		_collider.enabled = true;
 
