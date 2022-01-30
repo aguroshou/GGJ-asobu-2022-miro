@@ -62,6 +62,12 @@ TextureImporter:
   - first:
       213: 6431267478686115756
     second: map_atlas_19
+  - first:
+      213: -6828138890927044266
+    second: map_atlas_20
+  - first:
+      213: -6072446052773356917
+    second: map_atlas_21
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -566,6 +572,48 @@ TextureImporter:
       bones: []
       spriteID: ca7ab9292b3704950800000000000000
       internalID: 6431267478686115756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map_atlas_20
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 21
+        width: 383
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65983411bd39d31a0800000000000000
+      internalID: -6828138890927044266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map_atlas_21
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 21
+        width: 383
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a98bafc765abba0800000000000000
+      internalID: -6072446052773356917
       vertices: []
       indices: 
       edges: []

@@ -25,6 +25,8 @@ public class SwitchButton : MonoBehaviour
 		new Change(){ Prev = GimmickID.Gumi, Next = GimmickID.Cookie},
 		new Change(){ Prev = GimmickID.Cookie, Next = GimmickID.Ame},
 	};
+	[SerializeField] bool _IsAll = true;
+	List<GimmickChanger> _GimmickList = new List<GimmickChanger>();
 
 	[SerializeField] private Sprite normalSprite;
 	[SerializeField] private Sprite pushSprite;
@@ -72,7 +74,15 @@ public class SwitchButton : MonoBehaviour
 		&& other.gameObject.CompareTag("Player"))
 		{
 			var manager = FindObjectOfType<GimmickManager>();
-			manager.AllChange(_ChangeList);
+
+			if (_IsAll)
+			{
+				manager.AllChange(_ChangeList);
+			}
+			else
+			{
+				manager.Change(_ChangeList, _GimmickList);
+			}
 
 			_spriteRenderer.sprite = pushSprite;
 			_pushTimer = _pushAnimTime;
