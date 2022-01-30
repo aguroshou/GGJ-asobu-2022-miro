@@ -10,6 +10,8 @@ public class SoundManager : SingletonMonobehavior<SoundManager>
 	public enum BGM
 	{
 		Game,
+		StageSelect,
+		Clear,
 	}
 
 	public enum SE

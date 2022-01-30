@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		FindObjectOfType<PlayerController>().IsPlaying = false;
+		SoundManager.I.PauseBGM();
 	}
 
 	public void Clear()
@@ -33,7 +34,8 @@ public class GameManager : MonoBehaviour
 		FindObjectOfType<PlayerController>().IsPlaying = false;
 		_CountDown = 4.0f;
 
-		SoundManager.I.PauseBGM();
+		SoundManager.I.ResumeBGM();
+		SoundManager.I.PlayBGM(SoundManager.BGM.Clear);
 	}
 
 	void Update()
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
 					_text.text = "";
 					_IsRetry = false;
 					SoundManager.I.PlayBGM(SoundManager.BGM.Game, true);
+					SoundManager.I.ResumeBGM();
 				}
 				break;
 			case State.Playing:
