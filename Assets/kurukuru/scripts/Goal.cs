@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
+
+	private SpriteRenderer _spriteRenderer;
+	private float _time;
+	private int _spriteCount;
+	[SerializeField] private float animationInterval = 0.2f;
+	[SerializeField] private List<Sprite> spriteList = new List<Sprite>();
+
 	[SerializeField] private GameObject stageClearGameObject;
 
 	[SerializeField] private float stageClearedWaitTime = 3.0f;
