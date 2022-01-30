@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class Goal : MonoBehaviour
 {
 
+	[SerializeField]
 	private SpriteRenderer _spriteRenderer;
 	private float _time;
 	private int _spriteCount;
-	[SerializeField] private float animationInterval = 0.2f;
+	[SerializeField] private float animationInterval = 0.4f;
 	[SerializeField] private List<Sprite> spriteList = new List<Sprite>();
 
 	[SerializeField] private GameObject stageClearGameObject;
@@ -21,6 +22,21 @@ public class Goal : MonoBehaviour
 	[SerializeField] private int currentStageNumber;
 
 	private bool _isStageCleared = false;
+
+
+	private void Update()
+	{
+		_time += Time.deltaTime;
+		if (_time > animationInterval)
+		{
+			_spriteCount++;
+			if (_spriteCount >= spriteList.Count)
+				_spriteCount = 0;
+
+			_spriteRenderer.sprite = spriteList[_spriteCount];
+			_time = 0.0f;
+		}
+	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{

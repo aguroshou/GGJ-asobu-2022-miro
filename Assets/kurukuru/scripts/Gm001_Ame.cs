@@ -53,6 +53,7 @@ public class Gm001_Ame : GimmickBase
 				_spriteCount = 0;
 
 			_spriteRenderer.sprite = spriteList[_spriteCount];
+			_time = 0.0f;
 		}
 	}
 

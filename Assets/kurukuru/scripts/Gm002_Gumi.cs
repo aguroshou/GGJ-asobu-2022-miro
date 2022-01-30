@@ -37,6 +37,7 @@ public class Gm002_Gumi : GimmickBase
 				_spriteCount = 0;
 
 			_spriteRenderer.sprite = spriteList[_spriteCount];
+			_time = 0.0f;
 		}
 	}
 
