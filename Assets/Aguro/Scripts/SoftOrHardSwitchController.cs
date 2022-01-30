@@ -10,7 +10,7 @@ public class SoftOrHardSwitchController : MonoBehaviour
     // 箱の下の方にある当たり判定です。
     private BoxCollider2D _hitCheckBoxCollider2D;
 
-    private BoxCollider2D _playerBoxCollider2D;
+    private CapsuleCollider2D _playerCapsuleCollider2D;
     
     public delegate void SoftOrHardSwitchEventHandler();
     public static event SoftOrHardSwitchEventHandler SoftOrHardSwitchChanged;
@@ -26,7 +26,7 @@ public class SoftOrHardSwitchController : MonoBehaviour
     void Start()
     {
         _hitCheckBoxCollider2D = hitCheck.GetComponent<BoxCollider2D>();
-        _playerBoxCollider2D = GameObject.Find("Player").GetComponent<BoxCollider2D>();
+        _playerCapsuleCollider2D = GameObject.Find("Player").GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class SoftOrHardSwitchController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (_hitCheckBoxCollider2D.IsTouching(_playerBoxCollider2D)
+        if (_hitCheckBoxCollider2D.IsTouching(_playerCapsuleCollider2D)
         && other.gameObject.CompareTag("Player"))
         {
             Debug.Log("イベント発行しました。");
